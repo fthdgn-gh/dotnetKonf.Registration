@@ -1,0 +1,38 @@
+<div class="container">
+    <div *ngIf="!entryId" class="row">
+        <form [formGroup]="entryForm" (ngSubmit)="onEntryFormSubmited()" class="col-md-6 offset-md-3">
+            <mat-form-field class="col-md-12">
+                <input matInput placeholder="Name" formControlName="name">
+            </mat-form-field>
+            <mat-form-field class="col-md-12">
+                <input matInput placeholder="Surname" formControlName="surname">
+            </mat-form-field>
+            <mat-form-field class="col-md-12">
+                <input matInput placeholder="Company" formControlName="company">
+            </mat-form-field>
+            <mat-form-field class="col-md-12">
+                <input matInput placeholder="Title" formControlName="title">
+            </mat-form-field>
+            <mat-form-field class="col-md-12">
+                <input matInput placeholder="Mail Address" formControlName="mailAddress">
+            </mat-form-field>
+            <mat-form-field class="col-md-12">
+                <input matInput placeholder="Phone number" formControlName="phoneNumber">
+            </mat-form-field>
+            <mat-checkbox class="col-md-12" formControlName="licenceTerms">I agree the licence terms followed from <a target="_blank" [routerLink]="['/licence']">here</a>.</mat-checkbox>
+            <button mat-raised-button  color="primary" [disabled]="isSending || !entryForm.valid" class="btn-block">{{ isSending ? 'Sending' :  'Send' }}</button>
+        </form>
+    </div>
+    <div *ngIf="entryId" class="row">
+        <form [formGroup]="verifyForm" (ngSubmit)="onVerifyFormSubmitted()" class="col-md-6 offset-md-3">
+            <mat-form-field class="col-md-12">
+                <input matInput placeholder="Verify Code" formControlName="verifyCode">
+            </mat-form-field>
+            <button mat-raised-button color="primary" class="btn-block" [disabled]="isSending || !verifyForm.valid">{{ isSending ? 'Sending' :  'Send' }}</button>
+            <button mat-raised-button color="primary" class="btn-block" [disabled]="isSending || isResendingCode" type="button" (click)="onResetCode()">{{ isResendingCode ? 'Resending Code' :  'Resend Code' }}</button>
+        </form> 
+    </div>
+    <div class="row" class="col-md-6 offset-md-3">
+        <mat-chip>{{response.message}}</mat-chip>
+    </div>
+</div>
